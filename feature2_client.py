@@ -30,6 +30,10 @@ def main():
         client_socket.connect((host, port))
         print(f"Connected to server at {host}:{port}")
 
+        # 1. Wait for greeting from server
+        server_greeting = client_socket.recv(1024).decode()
+        print(server_greeting)
+
         # Get username
         username = input("Enter your username: ")
         client_socket.send(username.encode())
@@ -46,7 +50,7 @@ def main():
             message = input("Enter a message (format: @username message): ")
 
             if message.lower() == "quit":
-                print("Disconnecting...")
+                print("Disconnecting")
                 break
 
             client_socket.send(message.encode())

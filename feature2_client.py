@@ -8,6 +8,7 @@ import threading
 import socket
 import threading
 
+# Background thread to listen for messages from server
 def background(client_socket):
     while True:
         try:
@@ -21,9 +22,9 @@ def background(client_socket):
             break
 
 def main():
-    host = '127.0.0.1'
+    host = '192.168.1.40'
     port = 65432
-
+    # Create a TCP/IP socket
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     try:
@@ -45,7 +46,7 @@ def main():
             daemon=True
         )
         background_thread.start()
-
+        #Message sending loop
         while True:
             message = input("Enter a message (format: @username message): ")
 

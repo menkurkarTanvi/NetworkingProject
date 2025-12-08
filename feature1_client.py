@@ -8,9 +8,11 @@ import threading
 import socket
 import threading
 
+# Background thread to listen for messages from server
 def background(client_socket):
     while True:
         try:
+            #Decode message from server
             server_message = client_socket.recv(1024).decode()
             if not server_message:
                 print("\nServer disconnected.")
@@ -21,7 +23,7 @@ def background(client_socket):
             break
 
 def main():
-    host = '127.0.0.1'
+    host = '192.168.1.40'
     port = 65432
 
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

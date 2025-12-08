@@ -11,6 +11,7 @@ def client_handler(client_socket, client_address, username):
     print(f"Handling client {client_address}")
     try:
         while True:
+            #receive the message from the client socket
             message = client_socket.recv(1024)
             message_string = message.decode('utf-8').strip()
             #Send the message to all clients except the client that sent the message
@@ -30,9 +31,9 @@ def client_handler(client_socket, client_address, username):
         print(f"Client {client_address} ({username}) disconnected.")
 
 def main():
-    HOST = '127.0.0.1' 
+    HOST = '192.168.1.40' 
     PORT = 65432        
-
+    #Bind server to IP and Port
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind((HOST, PORT))
     server_socket.listen()
@@ -40,6 +41,7 @@ def main():
     print(f"Server listening on {HOST}:{PORT}")
     try:
       while True:
+        #Accept connection from client
         client_socket, client_address = server_socket.accept()
         print(f"Accepted connection from {client_address}")
         message_to_client = "Hello, please send your username\n"

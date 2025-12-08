@@ -11,16 +11,24 @@ def client_handler(client_socket, client_address, username):
     print(f"Handling client {client_address}")
     try:
         while True:
+            #receive the message from the client socket
             data = client_socket.recv(1024)
+            #Decode the message
             data_string = data.decode('utf-8').strip()
+            #Check if the message is in the correct format
             if len(data_string) > 1 and data_string.startswith("@"):
+                #Extract the target username and message
                 username_message = data_string.split(" ", 1)
+                #Validate the format
                 if len(username_message) < 2:
                    client_socket.sendall(b"Incorrect format. Use: @username message\n")
                    continue
+                #Get target username and message
                 target_username = username_message[0][1:]
                 message = username_message[1]
+                #Check if the target username exists
                 if target_username in clients:
+                  #Send the message to the target user
                   target_socket = clients[target_username]
                   send_text = f"[{username}]{message}"
                   target_socket.sendall(message.encode('utf-8'))
@@ -41,7 +49,7 @@ def client_handler(client_socket, client_address, username):
         print(f"Client {client_address} ({username}) disconnected.")
 
 def main():
-    HOST = '127.0.0.1' 
+    HOST = '192.168.1.40' 
     PORT = 65432        
 
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -51,6 +59,7 @@ def main():
     print(f"Server listening on {HOST}:{PORT}")
     try:
       while True:
+        #Accept connection from client
         client_socket, client_address = server_socket.accept()
         print(f"Accepted connection from {client_address}")
         message_to_client = "Hello, please send your username\n"

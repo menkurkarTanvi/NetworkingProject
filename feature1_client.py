@@ -25,7 +25,7 @@ def background(client_socket):
 def main():
     host = '192.168.1.40'
     port = 65432
-
+    #Create a TCP/IP socket
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     try:
@@ -47,14 +47,14 @@ def main():
             daemon=True
         )
         background_thread.start()
-
+        #Message sending loop
         while True:
             message = input("Enter a message: ")
 
             if message.lower() == "quit":
                 print("Disconnecting")
                 break
-
+            #Send message to server
             client_socket.send(message.encode())
 
     except ConnectionRefusedError:

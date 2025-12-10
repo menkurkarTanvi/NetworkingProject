@@ -57,7 +57,7 @@ def main():
         #Add the (username, socket) to the dictionary
         clients[username] = client_socket
         client_socket.sendall(
-          b"Welcome! Send messages using: @username message\n"
+          b"Welcome! Send messages\n"
         )
         #Start the thread for the client
         client_thread = threading.Thread(target=client_handler, args=(client_socket, client_address, username))

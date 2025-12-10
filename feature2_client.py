@@ -22,6 +22,7 @@ def background(client_socket):
             break
 
 def main():
+    #IP and Port of the server to connect to
     host = '192.168.1.40'
     port = 65432
     # Create a TCP/IP socket
